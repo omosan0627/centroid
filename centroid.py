@@ -3,7 +3,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os # osモジュールのインポート
 
-#画像の読み込み
+def dist(array1, array2):
+    dist = 0
+    for (a1, a2) in zip(array1, array2):
+        dist += (a1 - a2) ** 2.0
+
+    return dist ** 0.5
  
 # os.listdir('パス')
 # 指定したパス内の全てのファイルとディレクトリを要素とするリストを返す
@@ -30,7 +35,7 @@ for file in files:
 
     for i in range(im_list.shape[0]):
         for j in range(im_list.shape[1]):
-            if any(im_list[i][j][k] != im_list[0][0][k] for k in range(4)):
+            if dist(im_list[i][j], im_list[0][0]) > 40.0:
                 im_painted[i][j] = 0.5
                 smx += i
                 mx += 1
